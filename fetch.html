@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub User Details Fetcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(65deg,rgb(118, 197, 249),rgb(131, 51, 135));
+      background-color: #f4f4f4;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color:#f5f7f8;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #086c1e;
+    }
+
+    #album {
+      margin-top: 30px;
+      background: linear-gradient(45deg,#ccc,rgb(123, 123, 237));
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Fetch User Information</h1>
+  <input type="text" id="username" placeholder="Enter github username"></input>
+  <button id="load" onclick="loadDetails()">Load Details</button>
+  <div id="album"></div>
+
+  <script>
+   function loadDetails() {
+    const username = document.getElementById("username").value; 
+    const albumDiv = document.getElementById("album"); 
+
+  fetch(`https://api.github.com/users/${username}`) 
+    .then((res) => res.json())
+    .then((data) => {
+      albumDiv.innerHTML = `
+        <h2>${data.name || data.login}</h2>
+        <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100" />
+        <p>Public Repos: ${data.public_repos}</p>
+        <p>Followers: ${data.followers}</p>
+        <p>Following: ${data.following}</p>`;
+    })
+    .catch((err) => {
+      albumDiv.innerHTML = "<p style='color:red;'>User not found</p>";
+      console.error(err);
+    });
+   }
+  </script>
+</body>
+</html>
