@@ -20,9 +20,4 @@ A simple web app that lets you enter a GitHub username and instantly view user d
 - JavaScript (Fetch API)
 - GitHub REST API
 
-## 🛠️ How to Use
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/github-user-details-fetcher.git
-   cd github-user-details-fetcher
